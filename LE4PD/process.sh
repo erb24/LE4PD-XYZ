@@ -34,18 +34,19 @@ protname="1UBQ"
 traj="traj.xtc"
 top=${protname}.tpr
 
-gmx=`which gmx_mpi`
 module load gromacs
+gmx=`which gmx_mpi`
 
 #Dump centered topology file
 echo "1" | $gmx trjconv -f $traj -s $top -dump 0 -o top.pdb
 
 $gmx editconf -f top.pdb -c -center 0 0 0 -o top.pdb
 
+old_top=$top
 top='top.pdb'
 #Do this for PCA
 
-echo "3 3" | $gmx covar -f $traj -s ../../1UBQ_2.tpr -ascii
+echo "3 3" | $gmx covar -f $traj -s $old_top -ascii
 
 #Correct PBCs
 echo "3 1" | $gmx trjconv -quiet -f $traj -s $top -o after_pbc.xtc -pbc whole -center -boxcenter zero
