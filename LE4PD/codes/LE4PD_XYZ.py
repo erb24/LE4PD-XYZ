@@ -143,6 +143,12 @@ def fric_calc(TOP, protname, N, nfrs, natoms, mu_eig, T, intv = 2.71828, viscosi
 				elif dummy[3] == "TRP" : mradlist.append((259.0/(4*pi))**.5)
 				elif dummy[3] == "TYR" : mradlist.append((229.0/(4*pi))**.5)
 				elif dummy[3] == "VAL" : mradlist.append((160.0/(4*pi))**.5)
+				elif dummy[3] == "NLM" : mradlist.append((158.0/(4*pi))**.5) #ASN-NAG
+				elif dummy[3] == "NMG" : mradlist.append((158.0/(4*pi))**.5) #ASN-NAG
+				elif dummy[3] == "CYX" : mradlist.append((140.0/(4*pi))**.5) #Some modified CYS
+				elif dummy[3] == "CYZ" : mradlist.append((140.0/(4*pi))**.5) #CYS complexed with Zn
+				elif dummy[3] == "HIZ" : mradlist.append((194.0/(4*pi))**.5) #HIS complexed with Zn
+					
 
 	#mrad_array = np.array(mradlist,dtype=str)
 	#np.savetxt('mrad.dat',np.array(mradlist).T,fmt='%s')
