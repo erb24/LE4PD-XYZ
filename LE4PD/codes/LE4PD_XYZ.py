@@ -442,6 +442,25 @@ def mode_mad(traj, protname, N, nfrs, Q, QINV, T, nmodes = 10, HA = False):
 			np.savetxt(path + 'barriers_HA.dat', np.array(fmadlist)/kT)
 
 		return np.array(fmadlist)/kT, xi, np.column_stack([np.rad2deg(theta[a,:]),np.rad2deg(phi[a,:]), xim[a,:]])
+	
+def tau_convert(eigvals,avfr,bar, HA = False):
+	import numpy as np
+
+	#kT in J
+	avfr = avfr*1e-9
+	kT = 1.38e-23*float(np.loadtxt(path + 'temp'))
+	#Convert to kg *nm^2 / ps^2
+	sigma = (kT / avfr)
+	print(sigma)
+	tau = 1e-6*eigvals*avfr /(kT)
+	tau_scaled = tau*np.exp(bar)
+	
+	if HA == False:
+		np.savetxt('tau.dat',np.column_stack([np.arange(1,len(tau)+1),tau]))
+		np.savetxt('tau_scaled.dat',np.column_stack([np.arange(1,len(tau)+1),tau_scaled]))
+	else:
+		np.savetxt('tau_HA.dat',np.column_stack([np.arange(1,len(tau)+1),tau]))
+		np.savetxt('tau_scaled_HA.dat',np.column_stack([np.arange(1,len(tau)+1),tau_scaled]))
 
 def LML(Q, mu, HA = False):
 	import numpy as np
