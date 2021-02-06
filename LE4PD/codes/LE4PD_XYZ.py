@@ -383,6 +383,7 @@ def mode_mad(traj, protname, N, nfrs, Q, QINV, T, nmodes = 10, HA = False):
 		#Make histogram
 		kT = 0.00198*T
 		fmadlist = []
+		feslist = []
 		for a in range(3*N):
 			x=xim[a,:]*np.sin(theta[a,:])*np.cos(phi[a,:])
 			y=xim[a,:]*np.sin(theta[a,:])*np.sin(phi[a,:])
@@ -418,6 +419,7 @@ def mode_mad(traj, protname, N, nfrs, Q, QINV, T, nmodes = 10, HA = False):
 			fmad = np.median(abs(np.array(dummy) - fes.min()))
 
 			fmadlist.append(fmad)
+			feslist.append(fes)
 
 		#Make a directory for this mode-dependent analysis
 		if os.path.exists('mode_analysis'):
@@ -428,14 +430,14 @@ def mode_mad(traj, protname, N, nfrs, Q, QINV, T, nmodes = 10, HA = False):
 
 		if not HA:
 			for a in range(nmodes):
-				np.save(path + 'fes'+str(a+1)+'.npy', fes)
+				np.save(path + 'fes'+str(a+1)+'.npy', feslist[a])
 				np.save(path + 'theta_phi_'+str(a+1)+'.npy', np.column_stack([np.rad2deg(theta[a,:]),np.rad2deg(phi[a,:]), xim[a,:]]))
 				np.save(path + "xi_"+str(a+1)+'.npy', xi[a,:])
 			np.savetxt(path + 'barriers_kcal.dat', np.array(fmadlist))
 			np.savetxt(path + 'barriers.dat', np.array(fmadlist)/kT)
 		else:
 			for a in range(nmodes):
-				np.save(path + 'fes'+str(a+1)+'_HA.npy', fes)
+				np.save(path + 'fes'+str(a+1)+'_HA.npy', feslist[a])
 				np.save(path + 'theta_phi_'+str(a+1)+'_HA.npy', np.column_stack([np.rad2deg(theta[a,:]),np.rad2deg(phi[a,:]), xim[a,:]]))
 				np.save(path + "xi_"+str(a+1)+'_HA.npy', xi[a,:])
 			np.savetxt(path + 'barriers_kcal_HA.dat', np.array(fmadlist))
