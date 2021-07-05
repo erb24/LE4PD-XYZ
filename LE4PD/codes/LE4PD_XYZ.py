@@ -326,6 +326,17 @@ def eigendecomp(covar, rij, avfr, avresrad, fric, path = './'):
 
 	return H3N, np.matmul(covar,np.linalg.inv(H3N)), Q, QINV, eiglamO
 
+def check_ill_conditioned(covar, rij, avfr, avresrad, fric, QINV):
+    adj = 0.01
+    # If the norm of the matrix is too large, then it's ill-conditioned,
+    # even if non-singular.
+    # The choice of 1e12 is a bit arbitrary...
+    while np.linalg.norm(QINV) >= 1e12:
+        print(adj)
+        H3N, AIHI, Q, QINV, eiglamO = le4pd.eigendecomp(covar, rij, avfr, fratio - adj, fric, path = './')
+        adj += 0.0001
+    return H3N, AIHI, Q, QINV, eiglamO, fratio
+
 def mode_mad(traj, protname, N, nfrs, Q, QINV, T, nmodes = 10, HA = False):
 	import numpy as np
 	import matplotlib.pyplot as plt
