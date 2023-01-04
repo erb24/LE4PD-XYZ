@@ -1,0 +1,21 @@
+;
+;	User spoel (236)
+;	Wed Nov  3 17:12:44 1993
+;	Input file
+;
+;define					= -POSRE_WATER
+constraints				=  none
+integrator				=  steep
+nsteps					=  5000
+;	Energy Minimization
+emtol					=  250
+emstep					=  0.01
+constraint_algorithm	=  shake
+shake_tol				=  0.0001
+ns_type					=  grid
+nstlist					=  20
+cutoff-scheme			=  Verlet
+coulombtype				=  PME
+rcoulomb				=  1.0
+rvdw					=  1.0
+pbc						=  xyz

@@ -1,0 +1,42 @@
+title					= Simulation of SYSTEM
+integrator				= md
+dt						= 0.002
+nsteps					= 5000 ;500000000
+; Output control
+nstxout					= 100000
+nstvout					= 100000
+nstenergy				= 100
+nstlog					= 250000
+nstxout-compressed		= 100
+compressed-x-grps		= Protein Water_and_ions
+; Neighborsearching
+cutoff-scheme			= Verlet
+ns_type					= grid
+nstlist					= 10
+rcoulomb				= 1.0
+rvdw					= 1.0
+; Bond parameters
+continuation	        = yes
+constraint_algorithm    = lincs	    
+constraints	            = h-bonds	
+lincs_iter	            = 1		    
+lincs_order	            = 4		    
+energygrps				= Protein Water_and_ions
+; Electrostatics
+coulombtype                     = PME
+pme_order                       = 10
+fourierspacing                  = 0.16
+tcoupl					= v-rescale
+tc-grps					= Protein  Water_and_ions
+tau_t					= 0.2	   0.2	
+ref_t					= 300      300	
+; Pressure coupling is on
+;pcoupl					= Parrinello-Rahman
+;pcoupltype				= isotropic
+;tau_p					= 1.0
+;ref_p					= 1.0
+compressibility			= 4.5e-5
+gen_vel					= no
+gen_temp				= 300
+gen_seed				= -1
+

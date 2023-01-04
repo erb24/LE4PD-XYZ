@@ -1,0 +1,44 @@
+title					= SYSTEM NPT equilibration
+define					= -DPOSRES_WATER
+; Run parameters
+integrator				= md		
+tinit					= 0.0
+nsteps					= 1000 ;1000000	
+dt		    			= 0.002		
+; Output control
+nstxout					= 1000		
+nstvout					= 1000		
+nstenergy				= 1000		
+nstlog					= 1000		
+; Bond parameters
+continuation	        = yes		
+constraint_algorithm    = lincs	    
+constraints	            = all-bonds	
+lincs_iter	            = 1		    
+lincs_order	            = 4		    
+; Neighborsearching
+cutoff-scheme   		= Verlet
+ns_type		    		= grid		
+nstlist		    		= 10	    
+rcoulomb	    		= 1.0		
+rvdw		    		= 1.0		
+; Electrostatics
+coulombtype	    		= PME		
+pme_order	    		= 10		
+fourierspacing			= 0.16		
+; Temperature coupling is on
+tcoupl					= V-rescale
+tc-grps					= Protein Water_and_ions
+tau_t					= 0.1   0.1
+ref_t					= 300	300
+; Pressure coupling is on
+pcoupl		        	= Parrinello-Rahman
+pcoupltype	        	= isotropic	       
+tau_p		        	= 1.0	       
+ref_p		        	= 1.0	       
+compressibility     	= 4.5e-5
+refcoord_scaling    	= all
+; Periodic boundary conditions
+pbc						= xyz
+; Velocity generation
+gen_vel					= no
